@@ -2,11 +2,15 @@ import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
 import toast from "react-hot-toast";
+import { FaGoogle } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 
 const Login = () => {
 
-    const  {user, signInUser} =useContext(AuthContext)
+    const  {user, signInUser,googleSignUp} =useContext(AuthContext)
+    const [error,setError]=useState('')
+    const [success,setSuccess]=useState('')
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     const location =useLocation()
@@ -30,7 +34,41 @@ console.log(user)
         // console.log(name,email,password)
    }
 
+   const handleGoogleSignIn=()=>{
+    googleSignUp()
+    .then(result=>{
+        setSuccess(Swal.fire(
+            'Good job!',
+            'Successfully Login!',
+           
+          ))
+          navigate(location?.state?location.state : "/" )
 
+        console.log(result.user)
+    }) 
+    .catch((error)=>{
+        const errorMessage = error.message;
+        setError(Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${errorMessage}`,
+           
+          }))
+    })
+    fetch('https://my-server-nslqzdmr1-ramohin1236.vercel.app/user',{
+        method: "POST",
+        headers:{
+           "content-type":"application/json"
+        },
+        body: JSON.stringify()
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        console.log(data);
+      })
+    
+
+}
 
 
 
@@ -69,7 +107,12 @@ console.log(user)
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-outline hover:text-white ">Login</button>
+              </div>
+              <div className="form-control mt-6">
+                <button
+                onClick={handleGoogleSignIn}
+                className="btn btn-outline hover:text-white "><FaGoogle/> Google</button>
               </div>
             </form>
           </div>
