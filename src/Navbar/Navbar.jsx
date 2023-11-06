@@ -1,13 +1,19 @@
 import { Link, NavLink } from "react-router-dom";
 import { FaBars, FaFacebook, FaTwitter, FaXmark } from "react-icons/fa6";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../Authentication/AuthProvider";
+
 const Navbar = () => {
 
-
+   const {user,logOut}=useContext(AuthContext)
     const [isOpenMenu , setIsOpenMenu]=useState(false)
 
     const handleToggleMenu=()=>{
         setIsOpenMenu(!isOpenMenu)
+    }
+
+    const handleLogOut =()=>{
+        logOut()
     }
 
     const navItems =[
@@ -15,6 +21,7 @@ const Navbar = () => {
         {path: '/allblogs' , link: "All Blogs"},
         {path: '/addblogs' , link: "Add Blogs"},
         {path: '/wishlist' , link: "Wishlist"},
+        // {path: '/login' , link: "Login"},
     ]
 
     return (
@@ -37,12 +44,19 @@ const Navbar = () => {
                 </ul>
 
                 {/* nav icons where we have social actives */}
-                <div className="text-white lg:flex gap-4 items-center hidden text-xl">
+                {
+                    user? 
+                    <button onClick={handleLogOut} className="bg-orange-500 px-6 py-2 font-semibold rounded-lg text-white hover:bg-white hover:text-black transition-all duration-300 ease-in block max-sm:hidden ">Log out</button>
+                     :
+                    <div className="text-white lg:flex gap-4 items-center hidden text-xl">
                     <a href="" className="hover:text-orange-400"><FaFacebook/></a>
                     <a href="" className="hover:text-orange-400"><FaTwitter/></a>
 
-                    <button className="bg-orange-500 px-6 py-2 font-semibold rounded-lg text-white hover:bg-white hover:text-black transition-all duration-300 ease-in"> Log in</button>
+                    <Link to='login'> <button className="bg-orange-500 px-6 py-2 font-semibold rounded-lg text-white hover:bg-white hover:text-black transition-all duration-300 ease-in"> Log in</button></Link>
                 </div>
+                }
+               
+                
 
                 {/* mobile responsive  */}
                 <div className="md:hidden">
@@ -57,7 +71,13 @@ const Navbar = () => {
  
              {/* menu Items for mobile */}
              <div>
-             <button className="bg-orange-500 px-6 py-2 font-semibold rounded-lg text-white hover:bg-white hover:text-black transition-all duration-300 ease-in lg:hidden"> Log in</button>
+             {
+                    user? <button onClick={handleLogOut} className="bg-orange-500 px-6 py-2 font-semibold rounded-lg text-white hover:bg-white hover:text-black transition-all duration-300 ease-in md:hidden lg:hidden">Log out</button> :
+                    <div className="text-white lg:flex gap-4 items-center text-xl ">
+               
+                    <Link to='login'> <button className="bg-orange-500 px-6 py-2 font-semibold rounded-lg text-white hover:bg-white hover:text-black transition-all duration-300 ease-in   lg:hidden "> Log in</button></Link>
+                </div>
+                }
              <ul className={`md:hidden gap-12 text-lg block space-y-2 px-4 py-6 mt-16 bg-white ${isOpenMenu ? "fixed top-0 left-0 w-full transition-all ease-out  duration-200":"hidden"}`}>
                    {
                     navItems.map(({path,link})=><li key={path} className="text-black">

@@ -4,6 +4,9 @@ import Home from "../Pages/Home/Home";
 import Allblogs from "../Pages/Allblogs";
 import Addblogs from "../Pages/Addblogs";
 import Wishlist from "../Pages/Wishlist";
+import Login from "../Authentication/Login";
+import Registration from "../Authentication/Registration";
+import PrivateRoute from "../Authentication/PrivateRoute";
 
  export const router = createBrowserRouter([
     {
@@ -20,13 +23,21 @@ import Wishlist from "../Pages/Wishlist";
         },
         {
             path:"/addblogs",
-            element: <Addblogs/>
+            element: <PrivateRoute><Addblogs/></PrivateRoute>
         },
         {
             path:"/wishlist",
             element: <Wishlist/>
         },
       ]
+    },
+    {
+        path: '/login',
+        element: <Login/>
+    },
+    {
+        path: '/registration',
+        element: <Registration/>
     },
   ]);
   
