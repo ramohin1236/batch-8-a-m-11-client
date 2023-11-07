@@ -1,24 +1,34 @@
-import { useEffect, useState } from "react";
 import BlogsCart from "./BlogsCart";
 import { Link } from "react-router-dom";
+import useAxios from "../Hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
 
 
 const Allblogs = () => {
 
 
-    const [blogs,setBlogs]=useState([]);
-console.log(blogs)
-     
-         useEffect(()=>{
-            async function fetchBlogs(){
-                let url ='http://localhost:5000/getbooks'
+    
+    const axios =useAxios()
 
-                const response = await fetch(url);
-                const data= await response.json();
-                setBlogs(data)
-            }
-            fetchBlogs()
-         },[])
+
+     
+     const getBooks =async()=>{
+        const res = await axios.get('/getbooks')
+        return res
+     }
+
+     const {data: books,isLoading,isError,error} = useQuery({
+        queryKey: ['books'],
+        queryFn: getBooks
+     })
+     if(isLoading){
+        return <span className="loading loading-spinner loading-lg"></span>
+     }
+     if(isError){
+        return <p className="text-red-500">{error}</p>
+     }
+     console.log(books?.data)
+        
     
 
     return (
@@ -32,7 +42,7 @@ console.log(blogs)
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
-                    blogs.map(blog=><Link 
+                    books?.data?.map(blog=><Link 
                         key={blog._id}>
                     <BlogsCart
                      blog={blog}
