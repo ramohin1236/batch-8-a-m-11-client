@@ -1,10 +1,12 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
+import { AuthContext } from "../Authentication/AuthProvider";
 
 const Addblogs = () => {
+    const {user}= useContext(AuthContext)
     const [selectedPhotoFile, setSelectedPhotoFile] = useState(null);
     const [startDate, setStartDate] = useState(new Date());
 
@@ -32,11 +34,12 @@ const Addblogs = () => {
 
             if(res.data?.acknowledged){
                 Swal.fire('Book is added!')
+                form.reset()
             }
             console.log("daata",res.data)
         })
         .catch((err)=>{
-            console.err("error",err)
+            console.err("error",err.message)
         })
     }
 
@@ -111,7 +114,7 @@ const Addblogs = () => {
                       
                         <br /><br />
                         <label className="text-lg bg-slate-200 py-3 rounded-md px-3 -mr-2 font-semibold"> Email</label>
-                        <input type="text" name='email' placeholder="Books Long Description"className="input input-bordered input-primary w-full max-w-xs" />
+                        <input type="text" name='email' defaultValue={user.email} placeholder="Books Long Description"className="input input-bordered input-primary w-full max-w-xs" />
 
                         
                         <br /><br />

@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import useAxios from "../Hooks/useAxios";
 
 
 const Login = () => {
@@ -15,12 +17,19 @@ const Login = () => {
     const [password,setPassword]=useState('')
     const location =useLocation()
     const navigate = useNavigate();
+    const axios=useAxios()
+
 console.log(user)
    const handleSubmit =async(e)=>{
         e.preventDefault()
           const toastLoading = toast.loading("Loggin in")
         try{
-            await signInUser(email,password)
+            const user =await signInUser(email,password)
+             console.log(user.user.email)
+           const res= await axios.post('/jwt',{
+            email: user.user.email
+           })
+        console.log(res)
            toast.success("Logged in",{id: toastLoading})
            navigate(location?.state?location.state : "/" )
             console.log('login')
@@ -78,7 +87,9 @@ console.log(user)
         <div className="hero-content flex-col ">
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Login now!</h1>
-          
+          <div>
+           
+          </div>
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <form

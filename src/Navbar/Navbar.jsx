@@ -25,7 +25,7 @@ const Navbar = () => {
     ]
 
     return (
-        <header className="bg-black text-white fixed top-0 left-0 right-0">
+        <header className="bg-black text-white top-0 left-0 right-0 bottom-0 ">
             <nav className="px-4 py-4 max-w-7xl mx-auto flex justify-between items-center">
                 <Link to='/' className="text-xl font-bold text-white">Book <span className="text-orange-500">Hub</span></Link>
                {/* navItems for large device */}
