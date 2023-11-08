@@ -38,7 +38,7 @@ import BookDetails from "../Pages/BookDetails";
         },
         {
             path:"/wishlist",
-            element: <Wishlist/>
+            element: <PrivateRoute><Wishlist/></PrivateRoute>
         },
       ]
     },

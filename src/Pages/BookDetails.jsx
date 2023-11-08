@@ -15,7 +15,7 @@ const BookDetails = () => {
 
     const handleWishlist=(e)=>{
         e.preventDefault()
-        console.log("kdjfkjf")
+        // console.log("kdjfkjf")
         const email =user.email
         const bookName= titel
         const bookCategory= category

@@ -1,7 +1,35 @@
 import { FaArrowRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import useAxios from "../Hooks/useAxios";
+import Swal from "sweetalert2";
+
+
 
 const Banner = () => {
+    const axios =useAxios()
+
+    const handleSubmit =(e)=>{
+        e.preventDefault()
+        const form = e.target;
+        const email= form.email.value;
+        const info ={email}
+        axios.post('/subscribe',info)
+        .then(res=>{
+            if(res.data.acknowledged){
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Congratulation!",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            }
+          
+            
+        })
+     
+    }
+
     return (
         <div className="px-4 py-28 mx-auto bg-black">
 
@@ -22,7 +50,13 @@ const Banner = () => {
                     <div className="mt-8 text-center">
                         <Link to='' className="font-extrabold hover:text-orange-500 inline-flex items-center text-center">Learn More <FaArrowRight className=" ml-2"/></Link>
                     </div>
-
+                    <header className="footer-title mt-16">Newsletter</header>
+                       <form 
+                       onSubmit={handleSubmit}
+                       action="">
+                       <input type="email" name="email" placeholder="Email here" className="input input-bordered input-secondary w-full max-w-xs text-black"  />
+                         <input type="submit" value="Subscribe" className="btn hover:bg-orange-500 hover:text-white" />
+                       </form>
                 </div>
             </div>
         </div>
