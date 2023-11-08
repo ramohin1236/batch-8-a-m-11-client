@@ -10,7 +10,7 @@ import useAxios from "../Hooks/useAxios";
 
 const Login = () => {
 
-    const  {user, signInUser,googleSignUp} =useContext(AuthContext)
+    const  {user, signInUser,googleSignUp, logOut} =useContext(AuthContext)
     const [error,setError]=useState('')
     const [success,setSuccess]=useState('')
     const [email,setEmail]=useState('')
@@ -29,9 +29,16 @@ console.log(user)
            const res= await axios.post('/jwt',{
             email: user.user.email
            })
+           console.log(res.data.success)
+           if(res.data.success){
+            toast.success("Logged in",{id: toastLoading})
+            navigate(location?.state?location.state : "/" )
+           }
+           else{
+            logOut()
+           }
         console.log(res)
-           toast.success("Logged in",{id: toastLoading})
-           navigate(location?.state?location.state : "/" )
+           
             console.log('login')
         
         }

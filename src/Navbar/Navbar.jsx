@@ -21,6 +21,7 @@ const Navbar = () => {
         {path: '/allblogs' , link: "All Blogs"},
         {path: '/addblogs' , link: "Add Blogs"},
         {path: '/wishlist' , link: "Wishlist"},
+        // {path: '/profile' , link: "Profile"},
         // {path: '/login' , link: "Login"},
     ]
 
@@ -46,7 +47,10 @@ const Navbar = () => {
                 {/* nav icons where we have social actives */}
                 {
                     user? 
+                   <>
+                   <Link to='/profile'> <button className="bg-orange-500 px-6 py-2 font-semibold rounded-lg text-white hover:bg-white hover:text-black transition-all duration-300 ease-in"> Profile</button></Link>
                     <button onClick={handleLogOut} className="bg-orange-500 px-6 py-2 font-semibold rounded-lg text-white hover:bg-white hover:text-black transition-all duration-300 ease-in block max-sm:hidden ">Log out</button>
+                   </>
                      :
                     <div className="text-white lg:flex gap-4 items-center hidden text-xl">
                     <a href="" className="hover:text-orange-400"><FaFacebook/></a>

@@ -13,8 +13,8 @@ const Allblogs = () => {
 
      
      const getBooks =async()=>{
-        const res = await axios.get('/getbooks')
-        return res
+        const res = await axios.get('/getbooks');
+        return res;
      }
 
      const {data: books,isLoading,isError,error} = useQuery({
@@ -27,7 +27,7 @@ const Allblogs = () => {
      if(isError){
         return <p className="text-red-500">{error}</p>
      }
-     console.log(books?.data)
+     console.log(books?.data?.result)
         
     
 
@@ -42,7 +42,7 @@ const Allblogs = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
-                    books?.data?.map(blog=><Link 
+                    books?.data?.result.map(blog=><Link 
                         key={blog._id}>
                     <BlogsCart
                      blog={blog}

@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { Link } from "react-router-dom";
+
 
 
 const BlogsCart = ({blog}) => {
@@ -18,7 +20,7 @@ const BlogsCart = ({blog}) => {
             <p className="font-medium mt-5">published: {date}</p>
           </div>
           <div className="card-actions justify-end">
-            <div className="badge badge-outline">Fashion</div> 
+            <Link><button className="badge badge-outline hover:bg-orange-600 hover:text-white">Details</button></Link>
             <div className="badge badge-outline">Products</div>
           </div>
         </div>

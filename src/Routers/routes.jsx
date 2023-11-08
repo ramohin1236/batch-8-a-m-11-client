@@ -7,6 +7,7 @@ import Wishlist from "../Pages/Wishlist";
 import Login from "../Authentication/Login";
 import Registration from "../Authentication/Registration";
 import PrivateRoute from "../Authentication/PrivateRoute";
+import Profile from "../Pages/Profile";
 
  export const router = createBrowserRouter([
     {
@@ -19,7 +20,11 @@ import PrivateRoute from "../Authentication/PrivateRoute";
         },
         {
             path:"/allblogs",
-            element: <Allblogs/>
+            element: <PrivateRoute><Allblogs/></PrivateRoute>
+        },
+        {
+            path:"/profile",
+            element: <Profile/>
         },
         {
             path:"/addblogs",

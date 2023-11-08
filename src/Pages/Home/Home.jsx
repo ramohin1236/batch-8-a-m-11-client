@@ -1,4 +1,6 @@
 import Category from "../../Other/Category";
+import Recent from "../../Other/Recent";
+// import RecentBlogs from "../../Other/RecentBlogs";
 import Allblogs from "../Allblogs";
 import Banner from "../Banner";
 
@@ -9,13 +11,15 @@ const Home = () => {
             <Banner />
 
 
-            <div className="w-9/12">
-                <div>
+            <div className=" flex">
+                <div className="w-3/4 ml-12">
                     <Category/>
                     <Allblogs />
                 </div>
-                <div>
-                    <p>right navigate</p>
+                <div className=" ml-16 mt-20 w-72">
+                    {/* <RecentBlogs/> */}
+                        <Recent/>
+                    
                 </div>
             </div>
         </div>
