@@ -8,6 +8,7 @@ import Login from "../Authentication/Login";
 import Registration from "../Authentication/Registration";
 import PrivateRoute from "../Authentication/PrivateRoute";
 import Profile from "../Pages/Profile";
+import BookDetails from "../Pages/BookDetails";
 
  export const router = createBrowserRouter([
     {
@@ -21,6 +22,11 @@ import Profile from "../Pages/Profile";
         {
             path:"/allblogs",
             element: <PrivateRoute><Allblogs/></PrivateRoute>
+        },
+        {
+            path:"/bookDetails/:id",
+            element: <PrivateRoute><BookDetails/></PrivateRoute>,
+            loader: ({params})=>fetch(`http://localhost:5000/getbook/${params.id}`)
         },
         {
             path:"/profile",

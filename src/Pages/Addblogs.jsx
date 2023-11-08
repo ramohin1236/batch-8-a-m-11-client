@@ -36,7 +36,7 @@ const Addblogs = () => {
                 Swal.fire('Book is added!')
                 form.reset()
             }
-            console.log("daata",res.data)
+            // console.log("daata",res.data)
         })
         .catch((err)=>{
             console.err("error",err.message)

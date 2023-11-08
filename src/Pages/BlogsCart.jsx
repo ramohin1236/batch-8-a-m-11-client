@@ -20,8 +20,10 @@ const BlogsCart = ({blog}) => {
             <p className="font-medium mt-5">published: {date}</p>
           </div>
           <div className="card-actions justify-end">
-            <Link><button className="badge badge-outline hover:bg-orange-600 hover:text-white">Details</button></Link>
-            <div className="badge badge-outline">Products</div>
+            <button
+             
+            className="badge badge-outline hover:bg-orange-600 hover:text-white">Details</button>
+            {/* <div className="badge badge-outline">Products</div> */}
           </div>
         </div>
       </div>
