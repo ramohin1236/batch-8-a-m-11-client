@@ -18,7 +18,7 @@ const Navbar = () => {
 
     const navItems =[
         {path: "/" , link: "Home"},
-        {path: '/allblogs' , link: "All Blogs"},
+        // {path: '/allblogs' , link: "All Blogs"},
         {path: '/addblogs' , link: "Add Blogs"},
         {path: '/wishlist' , link: "Wishlist"},
         // {path: '/profile' , link: "Profile"},
