@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import BlogsCart from "./BlogsCart";
 import { Link } from "react-router-dom";
 import useAxios from "../Hooks/useAxios";
@@ -8,49 +9,78 @@ import { useEffect, useState } from "react";
 const Allblogs = () => {
 
 
-    
-    const axios =useAxios()
+
+    const axios = useAxios()
 
 
 
-const [category,setCategory]=useState(null)
-const [uiqueC,setUniqueC]=useState('')
-const [date,setDate]=useState('')
-console.log(category)
-// console.log(category)
+    const [category, setCategory] = useState('')
+    const [categories,setCategories] = useState('')
+    const [date, setDate] = useState('')
+    // console.log(category)
+    console.log(categories)
 
-     useEffect(()=>{
-    axios.get('/getcategory')
-    .then(res=>setCategory(res.data))
-    },[])
-// useEffect(()=>{
-//     axios.get("http://localhost:5000/getcategory")
-//     .then(res=>{
-//        setCategory(res.data)
-//     })
-// }
-// ,[])
 
-     
-     const getBooks =async()=>{
-        const res = await axios.get(`/getbooks?sortField=price&sortOrder=${date}&category=${uiqueC}`);
+
+    // axios.get('/getcategory')
+    // .then(res=>{
+    //     setCategory(res.data)
+    // })
+
+    // useEffect(()=>{
+    //     axios.get("https://book-blog-server.vercel.app/getcategory")
+    //     .then(res=>{
+    //         setCategories(res.data)
+    //     })
+    // }
+    // ,[axios])
+
+
+    // get books category
+    // const getCategory = async()=>{
+    //     const res =await axios.get(
+
+    //         `https://book-blog-server.vercel.app/getbycategory?category=${category}`,
+
+
+    //     )
+    // }
+    // const { data: books } = useQuery({
+    //     queryKey: ['categories', category],
+    //     queryFn: getCategory
+    // })
+
+   
+    // console.log(categories)
+
+
+
+
+
+
+
+// sort
+    const getBooks = async () => {
+        const res = await axios.get(`/getbooks?sortField=price&sortOrder=${date}`,
+        // `https://book-blog-server.vercel.app/getbycategory?category=${category}`
+        );
         console.log(res)
         return res;
-     }
+    }
 
-     const {data: books,isLoading,isError,error} = useQuery({
-        queryKey: ['books'],date,uiqueC,
+    const { data: books, isLoading, isError, error } = useQuery({
+        queryKey: ['books' ,date,categories],
         queryFn: getBooks
-     })
-     if(isLoading){
+    })
+    if (isLoading) {
         return <span className="loading loading-spinner loading-lg"></span>
-     }
-     if(isError){
+    }
+    if (isError) {
         return <p className="text-red-500">{error}</p>
-     }
-     console.log(books?.data?.result)
-        
-    
+    }
+    console.log(books?.data?.result)
+
+
 
     return (
         <div>
@@ -61,23 +91,43 @@ console.log(category)
             <Blogs/>
             </div> */}
 
-            <div className="grid grid-cols-4 md:grid-cols-4 lg:grid-cols-7 gap-4 mt-6 mb-8">
-            {/* {
+            <div className=" mt-6 mb-8">
+                {/* {
                      category.map(cat=> <button
                      key={cat._id}
                      onClick={(e)=>setUniqueC(e.target.value)}
                      className="btn btn-outline btn-primary w-20 md:w-full">{cat.category}</button>)
             } */}
+            <label htmlFor="">Category</label>
+            <br />
+                <select 
+                onChange={(e)=>setCategory(e.target.value)}
+                className="select select-primary w-full max-w-xs">
+               
+                        {/* {
+                            categories.map((item)=>(
+                                <option
+                                key={item._id}
+                                >{item.category}</option>
+                            ))
+                        } */}
+                        
+                    {/* <option>Homer</option>
+                    <option>Marge</option>
+                    <option>Bart</option>
+                    <option>Lisa</option>
+                    <option>Maggie</option> */}
+                </select>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
-                    books?.data?.result.map(blog=><Link 
+                    books?.data?.result.map(blog => <Link
                         to={`/bookDetails/${blog._id}`}
                         key={blog._id}>
-                    <BlogsCart
-                     blog={blog}
-                    ></BlogsCart>
+                        <BlogsCart
+                            blog={blog}
+                        ></BlogsCart>
                     </Link>)
                 }
             </div>
