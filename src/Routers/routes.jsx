@@ -1,7 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import Layout from "../Layout/Layout";
 import Home from "../Pages/Home/Home";
-import Allblogs from "../Pages/Allblogs";
+
 import Addblogs from "../Pages/Addblogs";
 import Wishlist from "../Pages/Wishlist";
 import Login from "../Authentication/Login";
@@ -19,14 +19,11 @@ import BookDetails from "../Pages/BookDetails";
             path:"/",
             element: <Home/>
         },
-        {
-            path:"/allblogs",
-            element: <PrivateRoute><Allblogs/></PrivateRoute>
-        },
+        
         {
             path:"/bookDetails/:id",
             element: <PrivateRoute><BookDetails/></PrivateRoute>,
-            loader: ({params})=>fetch(`http://localhost:5000/getbook/${params.id}`)
+            loader: ({params})=>fetch(`https://book-blog-server.vercel.app/getbook/${params.id}`)
         },
         {
             path:"/profile",

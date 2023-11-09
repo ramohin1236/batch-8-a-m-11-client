@@ -29,7 +29,7 @@ const Addblogs = () => {
         const info = {titel,photo,category,shortDescription,longDescription,writers,emails,date}
         console.log(info)
 
-        axios.post('http://localhost:5000/postbooks',info)
+        axios.post('https://book-blog-server.vercel.app/postbooks',info)
         .then((res)=>{
 
             if(res.data?.acknowledged){
